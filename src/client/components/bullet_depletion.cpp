@@ -1,4 +1,4 @@
-#include <std_include.hpp>/*
+#include <std_include.hpp>
 #include "loader/component_loader.hpp"
 
 #include "game/game.hpp"
@@ -150,8 +150,8 @@ namespace bullet_depletion
 	public:
 		void start_hooks() override
 		{
-			cg_updateviewmodeldynamicbones_hook.create(REBASE(0x14126EE90), &cg_updateviewmodeldynamicbones_internal);
-			CG_PlayRumbleOnEntity_hook.create(REBASE(0x1409E6C90), &CG_PlayRumbleOnEntity_internal);
+			cg_updateviewmodeldynamicbones_hook.create(REBASE(0x14126EEB0), &cg_updateviewmodeldynamicbones_internal); //updated
+			CG_PlayRumbleOnEntity_hook.create(REBASE(0x1409E6C90), &CG_PlayRumbleOnEntity_internal); // unchanged
 		}
 
 		void destroy_hooks() override
@@ -162,4 +162,4 @@ namespace bullet_depletion
 	};
 }
 
-REGISTER_COMPONENT(bullet_depletion::component) */
+REGISTER_COMPONENT(bullet_depletion::component) 

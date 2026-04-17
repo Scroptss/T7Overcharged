@@ -208,21 +208,21 @@ namespace console
 		void start_hooks() override
 		{
 			
-			utils::hook::nop(REBASE(0x1420EE710), 6);	// Cmd_List_f, remove i->unknown //? updated
-			utils::hook::nop(REBASE(0x1420ED631), 10);	// Cmd_ExecuteSingleCommandInternal, remove next->unknown //? updated
-			utils::hook::nop(REBASE(0x1420ED6F0), 6);	// Cmd_ForEach, remove i->unknown //? updated
-			utils::hook::nop(REBASE(0x142151BF2), 13);	// Com_DvarDumpSingle, remove Dvar_GetFlags call //? updated
-			utils::hook::nop(REBASE(0x1422B8850), 6);	// Dvar_CanChangeValue, remove (dvar->flags & 1) != 0 //? updated
-			utils::hook::nop(REBASE(0x142151F13), 7);	// Dvar_Command, remove (dvar->flags & 1) == 0 //? updated
+			utils::hook::nop(REBASE(0x1420E2650), 6);	// Cmd_List_f, remove i->unknown //? updated
+			utils::hook::nop(REBASE(0x1420E1571), 10);	// Cmd_ExecuteSingleCommandInternal, remove next->unknown //? updated
+			utils::hook::nop(REBASE(0x1420E1630), 6);	// Cmd_ForEach, remove i->unknown //? updated
+			utils::hook::nop(REBASE(0x1420F97F2), 13);	// Com_DvarDumpSingle, remove Dvar_GetFlags call //? updated
+			utils::hook::nop(REBASE(0x14225C3F0), 6);	// Dvar_CanChangeValue, remove (dvar->flags & 1) != 0 //? updated
+			utils::hook::nop(REBASE(0x1420F9B13), 7);	// Dvar_Command, remove (dvar->flags & 1) == 0 //? updated
 			//utils::hook::nop(REBASE(0x1422BCDCA), 16);	// Dvar_ForEachName_Match, remove (dvar->flags & 1) != 0, don't need rewrote function
-			utils::hook::nop(REBASE(0x142152220), 13);	// Dvar_ListSingle, remove Dvar_GetFlags call //? updated
-			utils::hook::nop(REBASE(0x1421527D3), 9);	// Dvar_ToggleInternal, remove (dvar->flags & 1) == 0 //? updated
+			utils::hook::nop(REBASE(0x1420F9E20), 13);	// Dvar_ListSingle, remove Dvar_GetFlags call //? updated
+			utils::hook::nop(REBASE(0x1420FA3D3), 9);	// Dvar_ToggleInternal, remove (dvar->flags & 1) == 0 //? updated
 
-			Com_EventLoop_hook.create(REBASE(0x1420F8A50), &Com_EventLoop); //updated
-			Dvar_CanSetConfigDvar_hook.create(REBASE(0x1422B8890), &Dvar_CanSetConfigDvar); //updated
+			Com_EventLoop_hook.create(REBASE(0x1420EC990), &Com_EventLoop); //updated
+			Dvar_CanSetConfigDvar_hook.create(REBASE(0x14225C430), &Dvar_CanSetConfigDvar); //updated
 			//Dvar_ForEachName_1_hook.create(0x22BD890, &Dvar_ForEachName_Complete);
-			//Dvar_ForEachName_2_hook.create(REBASE(0x1422BCD80), &Dvar_ForEachName_Match); //updated broke ?
-			Dvar_GetDebugName_hook.create(REBASE(0x1422BD250), &Dvar_GetDebugName); //updated
+			//Dvar_ForEachName_2_hook.create(REBASE(0x1422BCD80), &Dvar_ForEachName_Match); //updated broke ? 2026: 0x142260920
+			Dvar_GetDebugName_hook.create(REBASE(0x142260DF0), &Dvar_GetDebugName); //updated
 		}
 
 		void destroy_hooks() override
