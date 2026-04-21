@@ -5,7 +5,7 @@
 
 namespace hks
 {
-	WEAK game::symbol<unsigned __int64 (lua::lua_State* s, const char* libname, const lua::luaL_Reg l[], int nup, int isHksFunc)> hksI_openlib { OFFSET(0x141D49440) }; //updated
+	WEAK game::symbol<unsigned __int64 (lua::lua_State* s, const char* libname, const lua::luaL_Reg l[], int nup, int isHksFunc)> hksI_openlib { OFFSET(0x141D3D070) }; //updated
 	WEAK game::symbol<unsigned __int64(lua::lua_State* s, lua::HksCompilerSettings* options, char const* buff, size_t sz, char const* name)> hksi_hksL_loadbuffer{ OFFSET(0x141D3F9B0) }; //updated
 	WEAK game::symbol<void (lua::lua_State* s, lua::lua_CFunction fn, int n, const char* functionName, int treatClosureAsFuncForProf)> hks_pushnamedcclosure{ OFFSET(0x141D3F6A0) };
 	WEAK game::symbol<const char* (lua::lua_State* s, const char* fmt, va_list* argp)> hksi_lua_pushvfstring{ OFFSET(0x141D421D0) }; //updated
