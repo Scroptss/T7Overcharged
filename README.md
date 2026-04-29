@@ -55,7 +55,7 @@ The [dvar hash list](usage/dvar_hash_list.txt) as of now isn't shipped with the 
 
 ## Download
 
-The latest version can be found on the [Releases Page](https://github.com/JariKCoding/T7Overcharged/releases).
+The latest version can be found on the [Releases Page](https://github.com/Scroptss/T7Overcharged/releases).
 
 ## Compile from source
 
