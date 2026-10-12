@@ -13,7 +13,7 @@
 - HTTP requests from lua
 - Discord Rich Presence
 - Bullet depletion
-- Automatic fix for the Paralyzer dial's null heat-percent crash on custom maps
+- Automatic fix for Paralyzer and Jetgun null heat-percent crash on custom maps
 - More to come!
 
 ## How to use
