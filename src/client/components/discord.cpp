@@ -19,6 +19,63 @@ namespace discord
 	int enemyScore;
 	bool isIngame = false;
 
+	// Text and art set from Lua (DiscordRPC.Set*) replace the defaults; "" goes back to the default.
+	// The strings live here because Discord keeps only the pointers.
+	std::mutex override_mutex;
+	std::string override_details, override_state, override_large_key, override_large_text, override_small_key, override_small_text;
+
+	void apply_overrides()
+	{
+		std::lock_guard lock(override_mutex);
+		if (!override_details.empty())
+			discord_presence.details = override_details.c_str();
+		if (!override_state.empty())
+			discord_presence.state = override_state.c_str();
+		if (!override_large_key.empty())
+			discord_presence.largeImageKey = override_large_key.c_str();
+		discord_presence.largeImageText = override_large_text.empty() ? nullptr : override_large_text.c_str();
+		discord_presence.smallImageKey = override_small_key.empty() ? nullptr : override_small_key.c_str();
+		discord_presence.smallImageText = override_small_text.empty() ? nullptr : override_small_text.c_str();
+	}
+
+	std::string lua_arg(lua::lua_State* s, int index)
+	{
+		if (hks::hksi_lua_gettop(s) < index)
+			return {};
+		const char* str = lua::lua_tostring(s, index);
+		return str ? str : "";
+	}
+
+	int set_details(lua::lua_State* s)
+	{
+		std::lock_guard lock(override_mutex);
+		override_details = lua_arg(s, 1);
+		return 0;
+	}
+
+	int set_state(lua::lua_State* s)
+	{
+		std::lock_guard lock(override_mutex);
+		override_state = lua_arg(s, 1);
+		return 0;
+	}
+
+	int set_large_image(lua::lua_State* s)
+	{
+		std::lock_guard lock(override_mutex);
+		override_large_key = lua_arg(s, 1);
+		override_large_text = lua_arg(s, 2);
+		return 0;
+	}
+
+	int set_small_image(lua::lua_State* s)
+	{
+		std::lock_guard lock(override_mutex);
+		override_small_key = lua_arg(s, 1);
+		override_small_text = lua_arg(s, 2);
+		return 0;
+	}
+
 	void update_discord()
 	{
 		Discord_RunCallbacks();
@@ -69,6 +126,7 @@ namespace discord
 		discord_presence.partySize = game::LobbySession_GetClientCount(0, game::LobbyClientType::LOBBY_CLIENT_TYPE_ALL);
 		discord_presence.partyMax = dvars::com_maxclients->current.integer;
 
+		apply_overrides();
 		Discord_UpdatePresence(&discord_presence);
 	}
 
@@ -123,6 +181,10 @@ namespace discord
 				{"SetRoundsPlayed", set_rounds_played},
 				{"SetPlayerScore", set_playerscore},
 				{"SetEnemyScore", set_enemyscore},
+				{"SetDetails", set_details},
+				{"SetState", set_state},
+				{"SetLargeImage", set_large_image},
+				{"SetSmallImage", set_small_image},
 				{nullptr, nullptr},
 			};
 			hks::hksI_openlib(game::UI_luaVM(), "DiscordRPC", HotReloadLibrary, 0, 1);
